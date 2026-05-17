@@ -1,9 +1,9 @@
 services:
   api-ocr:
     build: .
-    command: uvicorn main:app --host 0.0.0.0 --port 82
+    command: uvicorn main:app --host 0.0.0.0 --port 83
     expose:
-      - "82"
+      - "83"
     environment:
       - REDIS_URL=redis://redis-ocr:6379/2
     restart: always
