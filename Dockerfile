@@ -20,7 +20,7 @@ COPY . .
 RUN mkdir -p uploads
 
 # Comunica a porta 82 interna para o roteador Easypanel
-EXPOSE 82
+EXPOSE 83
 
 # Inicia o servidor HTTP nativo na porta 82
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "82"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "83"]
