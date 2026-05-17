@@ -1,0 +1,31 @@
+services:
+  api-ocr:
+    build: .
+    command: uvicorn main:app --host 0.0.0.0 --port 82
+    expose:
+      - "82"
+    environment:
+      - REDIS_URL=redis://redis-ocr:6379/2
+    restart: always
+    depends_on:
+      - redis-ocr
+    volumes:
+      - dados_ocr:/app/uploads
+
+  worker-ocr:
+    build: .
+    command: celery -A worker.app_celery worker --loglevel=info
+    environment:
+      - REDIS_URL=redis://redis-ocr:6379/2
+    restart: always
+    depends_on:
+      - redis-ocr
+    volumes:
+      - dados_ocr:/app/uploads
+
+  redis-ocr:
+    image: redis:alpine
+    restart: always
+
+volumes:
+  dados_ocr:
